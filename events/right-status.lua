@@ -2,12 +2,6 @@ local wezterm = require 'wezterm'
 
 local M = {}
 
-function get_cwd(pane)
-  local cwd_uri = pane:get_current_working_dir():sub(8)
-  local slash = cwd_uri:find("/")
-  return cwd_uri:sub(slash)
-end
-
 function get_battery_info()
 	local battery = wezterm.battery_info()[1]
 	local percentage = battery.state_of_charge * 100
@@ -31,42 +25,36 @@ function get_battery_info()
 		icon = wezterm.nerdfonts.md_battery_charging_low
 	end
 
-  local battery_info = string.format("%s %.0f%%", icon, percentage)
-	return battery_info
+	return string.format("%s %.0f%%", icon, percentage)
 end
 
 M.setup = function()
   wezterm.on("update-right-status", function(window, pane)
-    local cwd = " " .. get_cwd(pane) .. " "
-		local battery_info = " " .. get_battery_info() .. " "
+    local battery_info = " " .. get_battery_info() .. " "
     local date = wezterm.strftime(" %I:%M %p ")
-		local time = wezterm.strftime(" %B %-d ")
+    local time = wezterm.strftime(" %B %-d ")
 
     local status = wezterm.format({
-      {Foreground={Color="#d5c4a1"}},
-      {Background={Color="#3c3836"}},
-      {Text=cwd},
+	{Foreground={Color="#5e8052"}},
+      	{Background={Color="#3c3836"}},
+      	{Text=""},
+      	{Foreground={Color="#1d2021"}},
+      	{Background={Color="#5e8052"}},
+      	{Text=time},
 
-			{Foreground={Color="#5e8052"}},
-      {Background={Color="#3c3836"}},
-      {Text=""},
-      {Foreground={Color="#1d2021"}},
-      {Background={Color="#5e8052"}},
-      {Text=time},
+      	{Foreground={Color="#729c64"}},
+      	{Background={Color="#5e8052"}},
+      	{Text=""},
+      	{Foreground={Color="#1d2021"}},
+      	{Background={Color="#729c64"}},
+      	{Text=date},
 
-      {Foreground={Color="#729c64"}},
-      {Background={Color="#5e8052"}},
-      {Text=""},
-      {Foreground={Color="#1d2021"}},
-      {Background={Color="#729c64"}},
-      {Text=date},
-
-      {Foreground={Color="#8ec07c"}},
-      {Background={Color="#729c64"}},
-      {Text=""},
-      {Foreground={Color="#1d2021"}},
-      {Background={Color="#8ec07c"}},
-      {Text=battery_info},
+      	{Foreground={Color="#8ec07c"}},
+      	{Background={Color="#729c64"}},
+      	{Text=""},
+      	{Foreground={Color="#1d2021"}},
+      	{Background={Color="#8ec07c"}},
+      	{Text=battery_info},
     })
 
     window:set_right_status(status)
