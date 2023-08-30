@@ -20,22 +20,22 @@ return {
 
 		-- Navigation between panes
 		{
-			key = 'LeftArrow',
+			key = 'h',
 	    		mods = 'CTRL|SHIFT',
 	    		action = wezterm.action.ActivatePaneDirection 'Left',
 	  	},
   		{
-    			key = 'RightArrow',
+    			key = 'l',
     			mods = 'CTRL|SHIFT',
     			action = wezterm.action.ActivatePaneDirection 'Right',
   		},
   		{
-    			key = 'UpArrow',
+    			key = 'k',
     			mods = 'CTRL|SHIFT',
     			action = wezterm.action.ActivatePaneDirection 'Up',
   		},
   		{
-    			key = 'DownArrow',
+    			key = 'j',
     			mods = 'CTRL|SHIFT',
     			action = wezterm.action.ActivatePaneDirection 'Down',
   		},
